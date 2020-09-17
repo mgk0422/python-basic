@@ -1,3 +1,5 @@
+
+
 # do it ! 점프 투 파이썬 
 
 ## 02장 파이썬 프로그래밍 기초
@@ -443,7 +445,7 @@ Q. (1,2,3) 이라는 튜플에 값 4를 추가하여 (1,2,3,4)를 만들어 출�
 a=(1,2,3)
 print(a+(4,))
 > (1,2,3,4)
-     
+
       ```
      
       ```
@@ -1143,7 +1145,7 @@ for (first,last) in a:
 
  	Q. 총 5 명의 학생이 시험을 보았는데 시험 점수가 60점 넘으면 합격이고 그렇지 않으면 불합격이다. 			합격인지 불합격인지 결과를 보여주시오.
 
-    ```python
+```python
 marks = [90,25,67,45,80]
 number = 0
 for mark in marks:
@@ -1152,10 +1154,220 @@ for mark in marks:
         print("%d번 학생은 합격입니다" %number)
     else :
         print("%d번 학생은 불합격입니다" %number)
-> 1번 학생은 합격입니다
-> 2번 학생은 불합격입니다
-> 3번 학생은 합격입니다
-> 4번 학생은 불합격입니다
-> 5번 학생은 합격입니다
-    ```
+        
+> 1번 학생은 합격입니다.
+> 2번 학생은 불합격입니다.
+> 3번 학생은 합격입니다.
+> 4번 학생은 불합격입니다.
+> 5번 학생은 합격입니다.
+```
+##### for문과 continue문
+
+```python
+marks=[90,25,67,45,80]
+number=0
+for mark in marks:
+    number=number+1
+    if mark < 60 : continue
+    print("%d번 학생 축하합니다. 합격입니다." %number )
+    
+> 1번 학생 축하합니다. 합격입니다.
+> 3번 학생 축하합니다. 합격입니다.
+> 5번 학생 축하합니다. 합격입니다.
+```
+
+점수가 60점 이하인 학생일 경우 mark<60이 참이되어 continue문이 수행된다. 따라서 축하 메세지를 출력하는 부분인 print문을 수행하지않고 for문의 처음으로 돌아가게된다.
+
+##### for문과 함께 자주 사용하는 range 함수
+
+```python
+a = range(0,10)
+print(a)
+```
+
+range(0,10)은 0,1,2,3,4,5,6,7,8,9를 의미한다 
+
+시작숫자와 끝 숫자를 지정하려면 range(시작숫자,끝숫자) 형태를 사용하는데 이때 끝숫자 형태는 포함되지않기 떄문이다.
+
+```python
+add=0
+for i in range(1,11):
+    add=add+i
+print(add)
+> 55
+```
+
+##### 리스트 내포 사용하기
+
+```python
+a=[1,2,3,4]
+result=[]
+
+for num in a:
+    result.append((num*3))
+print(result)
+> [3, 6, 9, 12]
+```
+
+```python
+a=[1,2,3,4]
+result=[num*3 for num in a]
+print(result)
+> [3,6,9,12]
+```
+
+* ```python
+  [표현식 for 항목 in 반복 가능 객체 if 조건]
+  ```
+
+
+
+## 연습문제
+
+Q1. 다음 코드 결과값은 무엇일까?
+
+```python
+a = "Life is too short, you need python"
+if "wife" is a:
+    print("wife")
+elif "python" in a and "you" not in a:
+    print("python")
+elif "short" not in a:
+    print("shirt")
+elif "need" in a:
+    print("need")
+else :
+    print("none")
+> need
+```
+
+
+
+Q2. while문을 사용해 1부터 1000까지의 자연수 중 3의 배수의 합을 구해보자.
+
+```python
+result =0
+i = 1
+while i<=1000:
+    if i%3==0 :
+        result = result+i
+    i = i + 1
+print(result)
+> 166833
+```
+
+
+
+Q3. while문을 사용하여 다음과 같이 별(*)을 표시하는 프로그램을 작성해보자
+
+```python
+i=0
+while True:
+    i+=1
+    if i>5: break
+    print('*'*i)
+    
+> *
+> **
+> ***
+> ****
+> *****
+```
+
+
+
+Q4. for문을 사용해 1부터 100까지 숫자를 출력해보자.
+
+```python
+for i in range(1,101):
+    print(i)
+```
+
+
+
+Q5. A학급에 총 10명의 학생이 있다. 이 학생들의 중간고사 점수는 다음곽 ㅌ다.
+
+[70,60,55,75,95,90,80,80,85,100]
+
+for문을 사용하여 A학급의 평균 점수를 구해보자.
+
+```python
+A = [70,60,55,75,95,90,80,80,85,100]
+total = 0
+for score in A:
+    total += score
+average = total / len(A)
+print(average)
+```
+
+
+
+Q6. 리스트 중에 홀수에만 2를 곱하여 저장하는 다음 코드가 있다.
+
+```python
+numbers=[1,2,3,4,5]
+result=[]
+for n in numbers :
+    if n % 2==1 :
+        result.append(n*2)
+print(result)
+
+> [2, 6, 10]
+```
+
+```python
+result = [n*2 for n in numbers if n%2==1]
+print(result)
+
+> [2, 6, 10]
+```
+
+```
+# 리스트 내포의 일반 문법 잘이해하기
+[표현식 for 항목 in 반복 가능 객체 if 조건]
+```
+
+
+
+## 04 장 함수
+
+##### 파이썬 함수의 구조
+
+```
+def 함수 이름(매개변수):
+	수행할 문장1
+	수행할 문장2
+```
+
+```python
+def add(a,b):
+    return a+b
+print(add(3,4))
+> 7
+```
+
+##### 입력값과 결과값에 따른 함수의 형태
+
+1) 일반적인 함수
+
+* 입력값이 있고 결과값이 있는 함수가 일반적인 함수
+
+```
+def 함수 이름(매개변수):
+	수행할 문장
+	...
+	return 결과값
+```
+
+* 입력값이 없는 함수
+
+```python
+def say():
+	return 'Hi'
+a= say()
+print(a)
+> Hi
+```
+
+* 결과값이 없는 함수
 
