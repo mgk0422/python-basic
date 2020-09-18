@@ -1371,3 +1371,386 @@ print(a)
 
 * 결과값이 없는 함수
 
+```python
+def add(a,b):
+	print("%d,%d의 합은 %d입니다."%(a,b,a+b))
+
+print(add(3,4))
+> 3,4의 합은 7입니다.
+```
+
+결과값이 없는 함수는 호출해도 돌려주는 값이 없기 떄문에 다음과 같이 사용한다 즉 결과값이 없는 함수는 다음과 같이 사용한다
+
+```
+함수이름(입력인수,입력인수2,...)
+```
+
+결과 값이 진짜 없는지 확인을 해보자
+
+```python
+a=add(3,4)
+print(a)
+> 3,4의 합은 7입니다.
+> None
+```
+
+* '3,4의 합은 7입니다' 라는 문장을 출력해 주었는데 왜 결과값이 없다는 것일까? print문은 함수의 구성 요소 중 하나인 <수행할 문장>에 해당하는 부분일 뿐이다. 결과값은 당연히 없다. 결과값은 오직 return 명령어로 돌려받을 수 있다.
+* a는 None이다 None이란 거짓을 나타내는 자료형이라고 생각하면 된다.
+
+
+
+##### 입력 값도 결과값도 없는 함수
+
+```python
+def say():
+	print('Hi')
+
+say()
+> Hi
+```
+
+입력 인수를 받는 매개변수도 없고 return문도 없으니 입력값도 결과값도 없는 함수이다. 즉 입력값도 결과값도 없는 함수는 다음과 같이 사용한다
+
+```
+함수이름()
+```
+
+##### 매개변수 지정하여 호출하기
+
+```python
+def add(a,b):
+	return a+b
+
+result = add(a=3,b=7)
+print(result)
+> 10 
+```
+
+매개변수를 지정하면 다음과 같이 순서에 상관없이 사용할 수 있다는 장점이있다. 
+
+```python
+result = add(a=5,b=3)
+print(result)
+> 8
+```
+
+##### 입력값이 몇개가 될지 모를 떄는 어떻게 해야할까?
+
+```
+def 함수이름(*매개변수)
+	수행할 문장
+	...
+```
+
+ ##### 여러개의 입력값을 받는 함수 만들기
+
+```python
+def add_many(*args):
+	result = 0
+	for i in args:
+		result = result + i
+	return result
+
+result=add_many(1,2,3)
+print(result)
+> 6
+
+result=add_many(1,2,3,4,5,6,7,8,9,10)
+print(result)
+> 55
+```
+
+```python
+def add_mul(choice,*args):
+	if choice=="add":
+		result=0
+		for i in args:
+			result= result+i
+	elif choice=="mul":
+		result=1
+		for i in args:
+			result=result*i
+	return  result
+
+result = add_mul('add',1,2,3,4,5)
+print(result)
+> 15
+
+result = add_mul('mul',1,2,3,4,5)
+print(result)
+> 120
+```
+
+
+
+#### 키워드 피라미터
+
+```python
+def print_kwargs(**kwargs):
+	print(kwargs)
+
+print_kwargs(a=1)
+> {'a': 1}
+print_kwargs(a=1,b=3)
+> {'a': 1, 'b': 3}
+```
+
+모두 딕셔너리로 만들어져 출력된다는 것을 알수 있다. 즉 **를 붙이면 매개변수 kwarge는 딕셔너리가 되고 모든 key=value 형태의 결과값이 그 딕셔너리에 저장된다.
+
+
+
+##### 함수의 결과값은 언제나 하나이다.
+
+```python
+def add_and_mul(a,b):
+	print(a+b,a*b)
+
+result=add_and_mul(3,4)
+result 
+> 7 12 #튜플 값을 의미
+```
+
+함수의 결과값은 a+b 와 a*b는 튜플 값 하나인(a+b, a * b)로 돌려준다.
+
+
+
+```python
+def add_and_mul(a,b):
+	return a+b
+	return a*b
+
+result = add_and_mul(2,3)
+print(result)
+> 5 
+```
+
+위와 같이 return문은 2번 사용하면 2개의 결과값을 돌려주지 않을까? 
+
+함수는 return문을 만나는 순간 결과값을 돌려준 다음 함수를 빠져나가게 된다.
+
+
+
+##### return의 또 다른 쓰임새
+
+특별한 상황일 때 함수를 빠져나가고 싶다면 return을 단독으로 써서 함수를 즉시 빠져나갈 수있다.
+
+```python
+def say_nick(nick):
+	if nick=="바보":
+		return
+	print("나의 별명은 %s 입니다." %nick)
+
+print(say_nick('야호'))
+> 나으 별명은 야호 입니다.
+print(say_nick('바보'))
+```
+
+위 함수는 '별명'을 입력으로 전달받아 출력하는 함수이다. 이 함수 역시 변환 값은 없다. 만약에 입력값으로 '바보'라는 값이 들어오면 문자열을 출력하지 않고 함수를 즉시 빠져나간다.
+
+
+
+##### 매개변수에 초깃갓 미리 설정하기
+
+매개변수에 초깃값을 미리 설정해 주는 경우이다.
+
+```python
+def say_myself(name,old,man=True) : 
+	print("나의 이름은 %s입니다." %name)    
+	print("나이는 %d살입니다." %old)       
+	if man:                         
+		print("남자입니다.")             
+	else:                           
+		print("여자입니다.")             
+                                    
+say_myself("박응용",27) 
+> 나의 이름은 박응용입니다.
+> 나이는 27살입니다.
+> 남자입니다.
+
+say_myself("박응용",27,True)    
+> 나의 이름은 박응용입니다.
+> 나이는 27살입니다.
+> 남자입니다.
+```
+
+함수의 매개변수에 들어갈 값이 항상 변하는 것이 아닐 경우에는 이렇게 함수의 초기값을 미리 설정해 두면 유용하다. 위 예에서 함수를 사용한 2가지 방법은 모두 동일한 결과를 출력한다.
+
+만약 man의 초기값을 False로 잡아준다면?
+
+```python
+def say_myself(name,old,man=False) :   
+	print("나의 이름은 %s입니다." %name)       
+	print("나이는 %d살입니다." %old)          
+	if man:                            
+		print("남자입니다.")                
+	else:                              
+		print("여자입니다.")          
+say_myself("박응용",27) 
+> 나의 이름은 박응용입니다.
+> 나이는 27살입니다.
+> 여자입니다.      
+```
+
+**함수의 초기값을 설정할 때 주의할 것이 하나있다**
+
+**초기값을 설정한 매개변수의 위치이다**
+
+```python
+def say_myself(name,man=False, old) : 
+	print("나의 이름은 %s입니다." %name)      
+	print("나이는 %d살입니다." %old)         
+	if man:                           
+		print("남자입니다.")               
+	else:                             
+		print("여자입니다.")  
+> say_myself("박응용",27) 
+```
+
+```
+SyntaxError: non-default argument follows default argument
+```
+
+위 오류 메시지는 초기값을 설정해 놓은 매개변수 뒤에 초기값을 설정해 놓지 않음 매개변수는 사용할 수 없다는 뜻이다. 즉 매개변수로(name,old,man=False)은 되지만 (name,man=False, old)는 안된다는 것이다. 
+
+** 초기화시키고 싶은 매개변수를 항상 뒤쪽에 놓는 것을 잊지 말자  **
+
+
+
+##### 함수 안에서 선언한 변수의 효력 범위
+
+```python
+a=1              # 함수 밖의 변수 a    
+def vartest(a):  # vartest 함수 선언 
+	a=a+1         
+                  
+vartest(a)     # vartest 함수의 입력값으로 a를 줌   
+print(a)       # a를 출력   
+```
+
+당연히 vartest 함수에서 매개변수 a의 값에 1을 더했으니까 2가 출력 될것 같지만 프로그램 소스를 작성해서 실행해 보면 결과값은 1이 나온다. 그 이유는 함수 안에서 새로 만든 매개변수는 함수 안에서만 '함수만의 변수'이기 때문이다. 즉, def vartest(a)을 입력값을 전달받는 매개변수 a는 함수 안에서만 사용하는 변수이지 함수 밖의 변수 a가 아니라는 뜻이다.
+
+
+
+##### 함수 안에서 함수 밖의 변수를 변경하는 방법
+
+vartest이라는 하무를사용해서 함수 밖의 변수 a를 1만큼 증가시킬 수 있는 방법은 없을까? 
+
+1. return 사용하기 
+
+   ```python
+   a=1              
+   def vartest(a):  
+   	a=a+1        
+   	return a     
+   a = vartest(a)   #vartest(a)의 결과값을 함수 밖의 변수 a에 대입
+   print(a)         
+   > 2
+   ```
+
+2. global 명령어 사용하기
+
+   ```python
+   a=1
+   def vartest():
+   	global a
+   	a = a + 1
+   
+   vartest()
+   print(a)
+   > 2
+   ```
+
+3. lambda
+
+   lambda 함수를 생성할 때 사용하는 예약어로 def와 동일한 역할을 한다. 보통 함수를  한줄로 간결하게 만들 때 사용한다. 
+
+   ```
+   lambda 매개변수1, 매개변수2,... : 매개변수를 사용한 표현식
+   ```
+
+   ```python
+   add = lambda a,b : a+b
+   result =add(3,4)
+   print(result)
+   > 7
+   ```
+
+
+
+### 사용자 입력와 출력
+
+##### 사용자 입력
+
+input은 입력되는 모든 것을 문자열로 취급한다.
+
+```
+input("질문내용")
+```
+
+
+
+##### 큰따옴표("")로 둘러싸인 문자열은 + 연산과 동일하다
+
+```python
+print("life""is""too short")
+> lifeistoo short
+print("life"+"is"+"too short")
+> lifeistoo short
+```
+
+##### 문자열 띄어쓰기는 콤마로 한다
+
+```python
+print("life","is","too short")
+> life is too short
+```
+
+##### 한줄에 결과값 출력하기
+
+```python
+for i in range(10):
+	print(i,end='')
+> 0123456789
+```
+
+
+
+## 연습문제
+
+1. 주어진 자연수가 홀수인지 짝수인지 판별해주는 함수 (is_odd)를 작성해보자
+
+   ```
+   def is_odd(number):
+   	if number%2==1:
+   		return True
+   	else:
+   		return False
+   ```
+
+2. 입력으로 들어오는 모든 수의 평균 값을 계산해 주는 함수를 작성해보자(단 입력으로 들어오는 수의 개수는 정해지지 않았다.)
+
+   ```python
+   def avg_numbers(*args):
+   	result = 0
+   	for i in args:
+   		result += i
+   	return result/len(args)
+   
+   print(avg_numbers(1,2))
+   > 1.5
+   print(avg_numbers(1,2,3,4,5))
+   > 3.0
+   ```
+
+
+
+
+
+
+
+
+
+
+
+
+
