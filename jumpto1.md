@@ -613,9 +613,9 @@ print(b.lastname)
 
 
 
-## 모듈
+## 05장. 모듈
 
-모듈이란 함수나 변수 또는 클래스를 모아 놓은 파일것이다. 모듈은 다른 파이썬 프로그램에서 불러와 사용할 수 있게끔 만든 파이썬 파일이라고도 할 수 있다.
+모듈이란 함수나 변수 또는 클래스를 모아 놓은 파일이다. 모듈은 다른 파이썬 프로그램에서 불러와 사용할 수 있게끔 만든 파이썬 파일이라고도 할 수 있다.
 
 
 
@@ -640,9 +640,150 @@ def sub(a,b):
 
 
 
+#### 내장함수
 
+* 절대함수
 
+  ```python
+  print(abs(3))
+  3
+  print(abs(-3))
+  3
+  print(abs(-1.2))
+  1.2
+  ```
 
+* all 
 
+  all(x)는 반복 가능한 자료형 x를 입력 인술 받으며 이 x가 모두 참이면 True, 거짓이 하나라도 있으면 False를 돌려준다
 
+  ```python
+  print(all([1,2,3]))
+  True
+  print(all([1,2,3,0]))
+  False
+  ```
 
+* any
+
+  any(x)는 x중 하나라도 참이 있으면 True를 돌려주고, x가 모두 거짓말일 때에만 False를 돌려준다. all(x)의 반대이다. 리스트 자료형 [0,""]의 요소 0과 ""는 모두 거짓이므로 False를 돌려준다.
+
+  ```python
+  print(any([1,2,3]))
+  True
+  print(any([0,""]))
+  False
+  ```
+
+* chr
+
+  chr(i)는 아스키코드 값을 입력받아 그 코드에 해당하는 문자를 출력한다.
+
+  ```python
+  print(chr(97))
+  a
+  print(chr(48))
+  0
+  ```
+
+* dir
+
+  dir은 객체가 자체적으로 가지고 있는 변수나 함수를 보여준다. 다음 예는 리스트와 딕셔너리 객체 관련 함수를 보여주는 예이다.
+
+  ```python
+  print(dir([1,2,3]))
+  ['__add__', '__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', ..
+  print(dir({'1':'a'}))
+  ['__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', ..
+  ```
+
+* divmod
+
+  divmod(a,b)는 2개의 숫자를 입력받는다. 그리고 a를 b로 나눈 몫과 나머지를 튜플 형태로 돌려주는 함수이다.
+
+  ```python
+  print(divmod(7,3))
+  (2,1)
+  print(7//3)
+  2          # 몫
+  print(7%3)
+  1		   # 나머지
+  ```
+
+* enumerate
+
+  순서가 있는 자료형을 입력으로 받아 인덱스 값을 포함하는 enumerate객체를 돌려준다.
+
+  for문 처럼 반복되는 구간에서 객체가 현재 어느 위치에 있는지 알려주는 인덱스 값이 필요할때 사용 
+
+  ```python
+  for i, name in enumerate(['body','foo','bar']):
+      print(i,name)
+  0 body
+  1 foo
+  2 bar
+  ```
+
+* eval
+
+  실행가능한 문자열을 입력으로 받아 문자열을 실행한 결과값을 돌려주는 함수
+
+  보통 eval 은 입력받은 문자열로 파이썬 함수나 클래스를 동적으로 실행하고 싶을때 사용한다.
+
+  ```python
+  print(eval("'minkyeong'+'HI'"))
+  minkyeongHI
+  print(eval('divmod(4,3)'))
+  (1, 1)
+  ```
+
+* filter
+
+  ```python
+  def positive(l):
+      result=[]
+      for i in l:
+          if i>0:
+              result.append(i)
+      return result
+  
+  print(positive([1,-3,2,0,-5-6]))
+  [1, 2]
+  ```
+
+  ```python
+  def positive(x):
+      return  x>0
+  print(list(filter(positive,[1,-3,2,0,-5,-6])))
+  [1, 2]
+  ```
+
+  
+
+* int 
+
+  int(x)는 문자열 형태의 숫자나 소수점이 있는 숫자등을 정수 형태로 돌려주는 함수로,정수를 입력으로 받으면 그대로 돌려준다.
+
+  ```python
+  print(int('3'))
+  3
+  print(int(3.4))
+  3
+  ```
+
+* open
+
+  open()은 '파일이름'과 '읽기방법'을 입력받아 파일 객체를 돌려주는 함수이다. 읽기방법을 생략하면 기본값인 읽기 전용모드 (r)로 파일객체를 만들어 돌려준다.\
+
+* zip
+
+  zip은 동일한 개수로 이루어진 자료형을 묶어 주는 함수이다
+
+  ```python
+  print(list(zip([1,2,3],[4,5,6],[7,8,9])))
+  [(1, 4, 7), (2, 5, 8), (3, 6, 9)]
+  ```
+
+  
+
+​		
