@@ -1,4 +1,4 @@
-# numpy
+# numpy1
 
 * 넘파이 ndarray 개요
 
