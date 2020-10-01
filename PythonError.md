@@ -23,3 +23,36 @@ print(bs_obj)
 
 -------------------------------------------------------------------------------------------------------
 
+### 파일 업로드 error
+
+```python
+file = open("C:\Users\mgk04.DESKTOP-8Q51H2D\Desktop\문재인대통령취임사.txt",'r')
+lists = file.readlines()
+file.close()
+lists
+```
+
+```python
+SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \UXXXXXXXX escape
+```
+
+```python
+file = open("C:/Users/mgk04.DESKTOP-8Q51H2D/Desktop/문재인대통령취임사.txt",'r')
+lists = file.readlines()
+file.close()
+lists
+```
+
+```python
+UnicodeDecodeError: 'cp949' codec can't decode byte 0xed in position 6: illegal multibyte sequence
+```
+
+```python
+file = open("C:/Users/mgk04.DESKTOP-8Q51H2D/Desktop/문재인대통령취임사.txt",'r',encoding='utf-8')
+lists = file.readlines()
+file.close()
+lists              #제대로된 결과값이 나옴
+```
+
+
+
